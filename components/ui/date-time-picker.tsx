@@ -162,6 +162,9 @@ function DateTimePicker({
           disabled={minDate ? { before: minDate } : undefined}
           defaultMonth={value}
           initialFocus
+          captionLayout="dropdown"
+          fromYear={1900}
+          toYear={new Date().getFullYear() + 10}
         />
         <Separator />
         <div
