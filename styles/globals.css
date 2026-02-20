@@ -118,6 +118,34 @@ span {
 	font-family: inherit;
 }
 
+/* Button CTA glow pulse */
+@keyframes cta-pulse {
+	0%, 100% { box-shadow: 0 4px 20px -4px rgba(166, 50, 50, 0.4), 0 0 0 1px rgba(255,255,255,0.1); }
+	50% { box-shadow: 0 8px 28px -4px rgba(197, 160, 89, 0.45), 0 0 0 1px rgba(255,255,255,0.15); }
+}
+
+.cta-reveal {
+	animation: cta-pulse 2.5s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   NAV BAR — Royal Palace themed
+   ═══════════════════════════════════════════════════════════ */
+.nav-link {
+	font-family: 'IBM Plex Mono', monospace;
+	font-size: clamp(0.6875rem, 1.2vw, 0.75rem);
+	font-weight: 500;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+}
+
+.nav-brand {
+	font-family: 'IBM Plex Mono', monospace;
+	font-size: clamp(0.75rem, 1.5vw, 0.875rem);
+	font-weight: 600;
+	letter-spacing: 0.2em;
+}
+
 /* Utility classes for specific typography needs */
 .label {
 	font-family: 'IBM Plex Mono', monospace;

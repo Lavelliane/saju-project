@@ -13,11 +13,10 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { cn } from "@/lib/helpers/utils";
 import { LanguageToggle } from "./LanguageToggle";
 import { ModeToggle } from "./ModeToggle";
 
@@ -56,37 +55,47 @@ export function Navbar() {
     }
   };
 
+  const navLinkBase =
+    "nav-link text-muted-foreground hover:text-foreground transition-colors duration-200";
+
   /* ─── Mobile nav ─── */
   if (isMobile) {
     return (
       <CookieProvider>
-        <nav className="flex items-center justify-between w-full px-4 py-3">
-          <Link href="/" aria-label="Go to homepage">
-            <h6>SAJU</h6>
+        <nav className="flex items-center justify-between w-full h-14 sm:h-16">
+          <Link href="/" aria-label="Go to homepage" className="flex items-center gap-1.5 group">
+            <span className="w-1 h-4 rounded-full bg-primary transition-all group-hover:h-5" />
+            <span className="nav-brand text-foreground">SAJU</span>
           </Link>
 
-          <div className="flex items-center gap-px">
+          <div className="flex items-center gap-1">
             <LanguageToggle />
             <ModeToggle />
             <Button
               variant="ghost"
-              size="icon"
+              size="icon-sm"
               onClick={() => setMobileOpen(true)}
               aria-label="Open menu"
+              className="rounded-lg text-muted-foreground hover:text-foreground hover:bg-primary/5"
             >
               <Menu className="size-5" aria-hidden="true" />
             </Button>
           </div>
 
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-            <SheetContent side="right" className="w-72 pt-12">
-              <SheetHeader>
-                <SheetTitle>
-                  <h6>SAJU</h6>
+            <SheetContent
+              side="right"
+              className="w-80 border-l border-border/60 bg-background dark:bg-card"
+            >
+              <SheetHeader className="border-b border-border/40 pb-4">
+                <SheetTitle className="flex items-center gap-2">
+                  <span className="w-1 h-5 rounded-full bg-primary" />
+                  <span className="nav-brand text-foreground">SAJU</span>
                 </SheetTitle>
               </SheetHeader>
 
-              <div className="flex flex-col gap-1 px-4">
+              <div className="flex flex-col gap-0.5 pt-6">
+                <p className="nav-link text-muted-foreground px-3 mb-2">Explore</p>
                 {SAJU_SUBNAV.map((item) => (
                   <SheetClose asChild key={item.title}>
                     <Link
@@ -95,7 +104,10 @@ export function Navbar() {
                         handleAnchorClick(e, item.href);
                         setMobileOpen(false);
                       }}
-                      className="px-3 py-2.5 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+                      className={cn(
+                        navLinkBase,
+                        "px-4 py-3 rounded-lg hover:bg-primary/5 hover:text-primary",
+                      )}
                     >
                       {item.title}
                     </Link>
@@ -103,14 +115,17 @@ export function Navbar() {
                 ))}
               </div>
 
-              <Separator className="mx-4" />
-
-              <div className="flex flex-col gap-1 px-4">
+              <div className="flex flex-col gap-0.5 pt-4">
+                <p className="nav-link text-muted-foreground px-3 mb-2">Pages</p>
                 {NAV_LINKS.map((item) => (
                   <SheetClose asChild key={item.title}>
                     <Link
                       href={item.href}
-                      className="px-3 py-2.5 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+                      onClick={() => setMobileOpen(false)}
+                      className={cn(
+                        navLinkBase,
+                        "px-4 py-3 rounded-lg hover:bg-primary/5 hover:text-primary",
+                      )}
                     >
                       {item.title}
                     </Link>
@@ -118,16 +133,19 @@ export function Navbar() {
                 ))}
               </div>
 
-              <Separator className="mx-4" />
-
-              <div className="px-4 flex flex-col gap-2">
+              <div className="flex flex-col gap-2 pt-6 mt-auto border-t border-border/40">
                 <SheetClose asChild>
-                  <Button asChild variant="outline" className="w-full" size="lg">
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="lg"
+                    className="w-full rounded-xl border-border/60 hover:bg-primary/5 hover:border-primary/30 hover:text-primary"
+                  >
                     <Link href="/login">Sign In</Link>
                   </Button>
                 </SheetClose>
                 <SheetClose asChild>
-                  <Button asChild className="w-full" size="lg">
+                  <Button asChild className="w-full rounded-xl shadow-glow" size="lg">
                     <Link href="/register">Get Started — Free</Link>
                   </Button>
                 </SheetClose>
@@ -142,55 +160,79 @@ export function Navbar() {
   /* ─── Desktop nav ─── */
   return (
     <CookieProvider>
-      <NavigationMenu className="flex justify-between items-center w-full max-w-7xl shrink-0">
-        <NavigationMenuList className="flex-wrap flex-1 relative">
-          {/* SAJU with sub-navigation */}
-          <NavigationMenuItem>
-            <NavigationMenuTrigger>
-              <h6>SAJU</h6>
-            </NavigationMenuTrigger>
-            <NavigationMenuContent className="flex gap-1 flex-1 min-w-7xl absolute top-0 left-0">
-              {SAJU_SUBNAV.map((item) => (
-                <NavigationMenuLink asChild key={item.title} className="flex-1">
-                  <Link
-                    href={item.href}
-                    onClick={(e) => handleAnchorClick(e, item.href)}
-                    className="group/item flex-row flex-1 items-center gap-3 text-nowrap py-20 justify-center"
-                  >
-                    <div className="w-px h-4 group-hover/item:bg-primary bg-transparent transition-colors duration-300" />
-                    <h6>{item.title}</h6>
-                    <div className="w-px h-4 group-hover/item:bg-primary bg-transparent transition-colors duration-300" />
-                  </Link>
-                </NavigationMenuLink>
-              ))}
-            </NavigationMenuContent>
-          </NavigationMenuItem>
+      <nav className="flex items-center justify-between w-full h-16">
+        <Link
+          href="/"
+          aria-label="Go to homepage"
+          className="flex items-center gap-2 group shrink-0"
+        >
+          <span className="w-1 h-5 rounded-full bg-primary transition-all group-hover:h-6 group-hover:bg-primary/80" />
+          <span className="nav-brand text-foreground">SAJU</span>
+        </Link>
 
-          {/* Top-level links */}
-          {NAV_LINKS.map((item) => (
-            <NavigationMenuItem key={item.title}>
-              <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                <Link href={item.href}>
-                  <h6>{item.title}</h6>
-                </Link>
-              </NavigationMenuLink>
+        <NavigationMenu className="flex-1 justify-center hidden md:flex">
+          <NavigationMenuList className="gap-1 list-none">
+            <NavigationMenuItem>
+              <NavigationMenuTrigger className="nav-link bg-transparent border-0 h-auto data-[state=open]:bg-primary/5">
+                SAJU
+              </NavigationMenuTrigger>
+              <NavigationMenuContent className="min-w-44 p-2">
+                <div className="flex flex-col gap-0.5">
+                  {SAJU_SUBNAV.map((item) => (
+                    <NavigationMenuLink asChild key={item.title}>
+                      <Link
+                        href={item.href}
+                        onClick={(e) => handleAnchorClick(e, item.href)}
+                        className={cn(
+                          navLinkBase,
+                          "group flex items-center gap-2 px-3 py-2.5 rounded-lg hover:bg-primary/5 hover:text-primary",
+                        )}
+                      >
+                        <span className="w-px h-3 bg-primary/30 opacity-60 group-hover:opacity-100 transition-opacity" />
+                        {item.title}
+                      </Link>
+                    </NavigationMenuLink>
+                  ))}
+                </div>
+              </NavigationMenuContent>
             </NavigationMenuItem>
-          ))}
-        </NavigationMenuList>
 
-        <div className="flex items-center gap-2">
-          <LanguageToggle />
-          <ModeToggle />
+            {NAV_LINKS.map((item) => (
+              <NavigationMenuItem key={item.title}>
+                <Link
+                  href={item.href}
+                  className={cn(
+                    navLinkBase,
+                    "inline-flex items-center px-4 py-2 rounded-lg hover:bg-primary/5",
+                  )}
+                >
+                  {item.title}
+                </Link>
+              </NavigationMenuItem>
+            ))}
+          </NavigationMenuList>
+        </NavigationMenu>
+
+        <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-0.5 p-1 rounded-xl bg-muted/30 border border-border/40">
+            <LanguageToggle />
+            <ModeToggle />
+          </div>
           <div className="flex items-center gap-2 ml-2">
-            <Button asChild variant="ghost" size="sm" className="rounded-full px-4">
+            <Button
+              asChild
+              variant="ghost"
+              size="sm"
+              className="rounded-xl text-muted-foreground hover:text-foreground hover:bg-primary/5"
+            >
               <Link href="/login">Sign In</Link>
             </Button>
-            <Button asChild size="sm" className="rounded-full px-4">
+            <Button asChild size="sm" className="rounded-xl shadow-glow px-5">
               <Link href="/register">Get Started</Link>
             </Button>
           </div>
         </div>
-      </NavigationMenu>
+      </nav>
     </CookieProvider>
   );
 }

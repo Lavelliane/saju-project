@@ -1,7 +1,12 @@
 "use client";
 
+import { CookieProvider } from "./cookie-provider";
 import { QueryProvider } from "./query-provider";
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
-  return <QueryProvider>{children}</QueryProvider>;
+  return (
+    <CookieProvider>
+      <QueryProvider>{children}</QueryProvider>
+    </CookieProvider>
+  );
 }
