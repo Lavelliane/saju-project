@@ -1,7 +1,10 @@
-import { eq, and, desc } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { sajuReading } from "@/db/schema/saju";
-import type { SaveSajuReadingDto, UpdateSajuReadingDto } from "@/server/validators/saju-reading.validators";
+import type {
+  SaveSajuReadingDto,
+  UpdateSajuReadingDto,
+} from "@/server/validators/saju-reading.validators";
 
 function generateId(): string {
   return `saju_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
@@ -38,7 +41,9 @@ export const sajuReadingService = {
         aiInterpretation: data.aiInterpretation ?? null,
       })
       .returning();
-    return rows[0]!;
+    const row = rows[0];
+    if (!row) throw new Error("Failed to create reading");
+    return row;
   },
 
   async update(userId: string, id: string, data: UpdateSajuReadingDto) {

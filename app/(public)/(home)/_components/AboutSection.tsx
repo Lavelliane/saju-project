@@ -1,34 +1,38 @@
 "use client";
 
-import { RevealOnScroll, fadeIn, fadeUp, scaleIn, slideLeft, slideRight } from "./MotionWrapper";
+import { fadeIn, fadeUp, RevealOnScroll, scaleIn, slideLeft, slideRight } from "./MotionWrapper";
 
 const PILLARS = [
   {
     korean: "年柱",
     romanized: "Nyeonju",
     label: "Year Pillar",
-    description: "Reveals your ancestral roots, early childhood, and the karmic energy you inherited at birth.",
+    description:
+      "Reveals your ancestral roots, early childhood, and the karmic energy you inherited at birth.",
     color: "#A63232",
   },
   {
     korean: "月柱",
     romanized: "Wolju",
     label: "Month Pillar",
-    description: "Governs your parents, siblings, and the social environment that shaped your formative years.",
+    description:
+      "Governs your parents, siblings, and the social environment that shaped your formative years.",
     color: "#2D5A43",
   },
   {
     korean: "日柱",
     romanized: "Ilju",
     label: "Day Pillar",
-    description: "The most personal pillar — it defines your core self, your spouse, and your inner nature.",
+    description:
+      "The most personal pillar — it defines your core self, your spouse, and your inner nature.",
     color: "#4A8B82",
   },
   {
     korean: "時柱",
     romanized: "Siju",
     label: "Hour Pillar",
-    description: "Points to your children, your ambitions, and the legacy you will leave in this world.",
+    description:
+      "Points to your children, your ambitions, and the legacy you will leave in this world.",
     color: "#C5A059",
   },
 ];
@@ -45,17 +49,23 @@ export function AboutSection() {
         {/* Section header */}
         <div className="max-w-2xl mb-20">
           <RevealOnScroll variants={fadeIn} custom={0}>
-            <span className="text-xs tracking-widest uppercase font-mono text-primary">What is Saju?</span>
+            <span className="text-xs tracking-widest uppercase font-mono text-primary">
+              What is Saju?
+            </span>
           </RevealOnScroll>
           <RevealOnScroll variants={fadeUp} custom={1} className="mt-4">
             <h2 className="text-foreground">
-              Four Pillars,<br />
+              Four Pillars,
+              <br />
               <span className="text-primary">One Destiny</span>
             </h2>
           </RevealOnScroll>
           <RevealOnScroll variants={fadeUp} custom={2} className="mt-6">
             <p className="text-muted-foreground text-lg leading-relaxed">
-              Saju (사주), literally "Four Pillars," is a 2,000-year-old Korean system of destiny reading rooted in Chinese metaphysics. Your exact birth date and time generate four pillars — each a pair of Heavenly Stem and Earthly Branch — that map the cosmic forces shaping your life.
+              Saju (사주), literally "Four Pillars," is a 2,000-year-old Korean system of destiny
+              reading rooted in Chinese metaphysics. Your exact birth date and time generate four
+              pillars — each a pair of Heavenly Stem and Earthly Branch — that map the cosmic forces
+              shaping your life.
             </p>
           </RevealOnScroll>
         </div>
@@ -65,13 +75,20 @@ export function AboutSection() {
           <RevealOnScroll variants={slideLeft} custom={0}>
             <div className="space-y-6">
               <p className="text-muted-foreground leading-relaxed">
-                Unlike Western astrology which focuses on the sun sign alone, Saju reads the interplay of <strong className="text-foreground">Ten Heavenly Stems (천간)</strong> and <strong className="text-foreground">Twelve Earthly Branches (지지)</strong> across four time dimensions — creating a unique 60-year cycle that has never repeated in recorded history.
+                Unlike Western astrology which focuses on the sun sign alone, Saju reads the
+                interplay of <strong className="text-foreground">Ten Heavenly Stems (천간)</strong>{" "}
+                and <strong className="text-foreground">Twelve Earthly Branches (지지)</strong>{" "}
+                across four time dimensions — creating a unique 60-year cycle that has never
+                repeated in recorded history.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                Practitioners read the balance of the <strong className="text-foreground">Five Elements</strong> — Wood (목), Fire (화), Earth (토), Metal (금), Water (수) — within your chart to reveal personality, relationships, career, health, and the timing of life events.
+                Practitioners read the balance of the{" "}
+                <strong className="text-foreground">Five Elements</strong> — Wood (목), Fire (화),
+                Earth (토), Metal (금), Water (수) — within your chart to reveal personality,
+                relationships, career, health, and the timing of life events.
               </p>
               <div className="flex flex-wrap gap-3 pt-2">
-                {["목 Wood", "화 Fire", "토 Earth", "금 Metal", "수 Water"].map((el, i) => (
+                {["목 Wood", "화 Fire", "토 Earth", "금 Metal", "수 Water"].map((el) => (
                   <span
                     key={el}
                     className="px-3 py-1.5 rounded-full border border-border bg-card text-sm font-medium text-foreground"
@@ -134,7 +151,9 @@ export function AboutSection() {
                 </div>
                 <div>
                   <p className="font-semibold text-foreground mb-1">{pillar.label}</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{pillar.description}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {pillar.description}
+                  </p>
                 </div>
               </div>
             </RevealOnScroll>

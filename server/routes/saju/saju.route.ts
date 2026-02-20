@@ -1,6 +1,9 @@
-import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
+import { Hono } from "hono";
+import { HTTPException } from "hono/http-exception";
 import { z } from "zod";
+import type { AuthType } from "@/lib/auth";
+import { authMiddleware } from "@/server/middleware/auth.middleware";
 import { sajuService } from "@/server/services/saju.service";
 import { sajuAiService } from "@/server/services/saju-ai.service";
 import { sajuReadingService } from "@/server/services/saju-reading.service";
@@ -9,11 +12,14 @@ import {
   saveSajuReadingSchema,
   updateSajuReadingSchema,
 } from "@/server/validators/saju-reading.validators";
-import { authMiddleware } from "@/server/middleware/auth.middleware";
-import { HTTPException } from "hono/http-exception";
-import type { AuthType } from "@/lib/auth";
 
 const router = new Hono<{ Variables: AuthType }>();
+
+function requireUser(c: { get: (key: string) => AuthType["user"] }) {
+  const user = c.get("user");
+  if (!user) throw new HTTPException(401, { message: "Unauthorized" });
+  return user;
+}
 
 /**
  * POST /api/saju/pillars
@@ -89,7 +95,7 @@ router.post("/ai-interpret", zValidator("json", aiInterpretSchema), async (c) =>
  * List all saved readings for the authenticated user
  */
 router.get("/readings", authMiddleware, async (c) => {
-  const user = c.get("user")!;
+  const user = requireUser(c);
   const data = await sajuReadingService.getAll(user.id);
   return c.json({ success: true, data });
 });
@@ -99,7 +105,7 @@ router.get("/readings", authMiddleware, async (c) => {
  * Get stats for the authenticated user
  */
 router.get("/readings/stats", authMiddleware, async (c) => {
-  const user = c.get("user")!;
+  const user = requireUser(c);
   const data = await sajuReadingService.getStats(user.id);
   return c.json({ success: true, data });
 });
@@ -109,7 +115,7 @@ router.get("/readings/stats", authMiddleware, async (c) => {
  * Get a single saved reading
  */
 router.get("/readings/:id", authMiddleware, async (c) => {
-  const user = c.get("user")!;
+  const user = requireUser(c);
   const id = c.req.param("id");
   const data = await sajuReadingService.getById(user.id, id);
   if (!data) throw new HTTPException(404, { message: "Reading not found" });
@@ -121,7 +127,7 @@ router.get("/readings/:id", authMiddleware, async (c) => {
  * Save a new reading
  */
 router.post("/readings", authMiddleware, zValidator("json", saveSajuReadingSchema), async (c) => {
-  const user = c.get("user")!;
+  const user = requireUser(c);
   const body = c.req.valid("json");
   const data = await sajuReadingService.create(user.id, body);
   return c.json({ success: true, data }, 201);
@@ -136,7 +142,7 @@ router.patch(
   authMiddleware,
   zValidator("json", updateSajuReadingSchema),
   async (c) => {
-    const user = c.get("user")!;
+    const user = requireUser(c);
     const id = c.req.param("id");
     const body = c.req.valid("json");
     const data = await sajuReadingService.update(user.id, id, body);
@@ -150,7 +156,7 @@ router.patch(
  * Delete a saved reading
  */
 router.delete("/readings/:id", authMiddleware, async (c) => {
-  const user = c.get("user")!;
+  const user = requireUser(c);
   const id = c.req.param("id");
   const data = await sajuReadingService.delete(user.id, id);
   if (!data) throw new HTTPException(404, { message: "Reading not found" });

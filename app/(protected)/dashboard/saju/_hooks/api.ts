@@ -1,5 +1,4 @@
-import type { SajuInput } from "@/lib/saju/types";
-import type { InterpretedAnalysis } from "@/lib/saju/types";
+import type { InterpretedAnalysis, SajuInput } from "@/lib/saju/types";
 import type { AiInterpretResponse, SajuApiResponse } from "../_types";
 
 export async function fetchInterpret(input: SajuInput): Promise<InterpretedAnalysis> {

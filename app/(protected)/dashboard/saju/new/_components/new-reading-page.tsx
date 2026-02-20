@@ -1,21 +1,22 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import type { InterpretedAnalysis } from "@/lib/saju/types";
 import { SajuForm } from "../../_components/saju-form";
 import { SajuResults } from "../../_components/saju-results";
-import { useInterpretSaju, useAiInterpretSaju, useSaveReading } from "../../_hooks";
+import { useAiInterpretSaju, useInterpretSaju, useSaveReading } from "../../_hooks";
 import type { SajuFormValues } from "../../_types";
-import type { InterpretedAnalysis } from "@/lib/saju/types";
 
 function formValuesToInput(values: SajuFormValues) {
-  const d = values.birthDate!;
+  if (!values.birthDate) throw new Error("Birth date is required");
+  const d = values.birthDate;
   return {
     year: d.getFullYear(),
     month: d.getMonth() + 1,
@@ -138,9 +139,12 @@ export function NewReadingPage() {
             isAiLoading={aiMutation.isPending}
           />
           <div className="rounded-xl border bg-muted/30 p-4 space-y-2">
-            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">About Saju</p>
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+              About Saju
+            </p>
             <p className="text-xs text-muted-foreground leading-relaxed">
-              사주팔자 uses your birth year, month, day, and hour to construct four pillars — each containing a Heavenly Stem (천간) and Earthly Branch (지지).
+              사주팔자 uses your birth year, month, day, and hour to construct four pillars — each
+              containing a Heavenly Stem (천간) and Earthly Branch (지지).
             </p>
             <p className="text-xs text-muted-foreground leading-relaxed">
               The <strong>Day Pillar</strong> (일주) represents your core self.
@@ -150,11 +154,7 @@ export function NewReadingPage() {
 
         <div>
           {analysis ? (
-            <SajuResults
-              analysis={analysis}
-              aiText={aiText}
-              isAiLoading={aiMutation.isPending}
-            />
+            <SajuResults analysis={analysis} aiText={aiText} isAiLoading={aiMutation.isPending} />
           ) : (
             <EmptyState isLoading={interpretMutation.isPending || aiMutation.isPending} />
           )}

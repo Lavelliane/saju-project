@@ -1,14 +1,14 @@
-import type { SajuInput, SajuResult } from "../types/saju";
-import type { FullAnalysis } from "../types/analysis";
 import { calculateSaju } from "../core/saju-calculator";
+import type { FullAnalysis } from "../types/analysis";
+import type { SajuInput, SajuResult } from "../types/saju";
+import { analyzeOheng } from "./oheng-analyzer";
 import { calculateSinsal } from "./sinsal-calculator";
 import { calculateTwelveStages } from "./twelve-stages-calculator";
-import { analyzeOheng } from "./oheng-analyzer";
 
+export { analyzeInterpreted, analyzeInterpretedFromResult, interpretSinsal } from "./interpreter";
+export { analyzeOheng } from "./oheng-analyzer";
 export { calculateSinsal } from "./sinsal-calculator";
 export { calculateTwelveStages } from "./twelve-stages-calculator";
-export { analyzeOheng } from "./oheng-analyzer";
-export { interpretSinsal, analyzeInterpreted, analyzeInterpretedFromResult } from "./interpreter";
 
 export function analyzeFullSaju(input: SajuInput): FullAnalysis {
   const saju = calculateSaju(input);

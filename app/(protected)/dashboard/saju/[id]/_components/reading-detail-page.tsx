@@ -1,18 +1,18 @@
 "use client";
 
-import { use, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, Sparkles, Trash2 } from "lucide-react";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { use, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useQuery } from "@tanstack/react-query";
+import type { InterpretedAnalysis } from "@/lib/saju/types";
+import { SajuResults } from "../../_components/saju-results";
+import type { SajuReadingRow } from "../../_hooks";
 import { useAiInterpretSaju, useDeleteReading } from "../../_hooks";
 import { readingKeys } from "../../_hooks/queries";
-import { SajuResults } from "../../_components/saju-results";
-import type { InterpretedAnalysis } from "@/lib/saju/types";
-import type { SajuReadingRow } from "../../_hooks";
 
 async function fetchReading(id: string): Promise<SajuReadingRow> {
   const res = await fetch(`/api/saju/readings/${id}`);
@@ -39,9 +39,13 @@ export function ReadingDetailPage({ paramsPromise }: ReadingDetailPageProps) {
   const { id } = use(paramsPromise);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const autoAi = searchParams.get("ai") === "true";
+  const _autoAi = searchParams.get("ai") === "true";
 
-  const { data: reading, isLoading, error } = useQuery({
+  const {
+    data: reading,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: readingKeys.detail(id),
     queryFn: () => fetchReading(id),
   });
@@ -93,7 +97,9 @@ export function ReadingDetailPage({ paramsPromise }: ReadingDetailPageProps) {
       <div className="py-6 px-4 md:px-6 space-y-6">
         <Skeleton className="h-8 w-48" />
         <div className="grid gap-3 grid-cols-4">
-          {[...Array(4)].map((_, i) => <Skeleton key={i} className="h-48 rounded-xl" />)}
+          {[...Array(4)].map((_, i) => (
+            <Skeleton key={i} className="h-48 rounded-xl" />
+          ))}
         </div>
         <Skeleton className="h-64 rounded-xl" />
       </div>
@@ -124,7 +130,8 @@ export function ReadingDetailPage({ paramsPromise }: ReadingDetailPageProps) {
           <div className="min-w-0">
             <h1 className="text-xl font-bold tracking-tight truncate">{reading.label}</h1>
             <p className="text-xs text-muted-foreground">
-              {new Date(reading.birthDate).toLocaleString()} {reading.isLunar === "true" ? "· 음력" : ""}
+              {new Date(reading.birthDate).toLocaleString()}{" "}
+              {reading.isLunar === "true" ? "· 음력" : ""}
             </p>
           </div>
         </div>
@@ -163,11 +170,7 @@ export function ReadingDetailPage({ paramsPromise }: ReadingDetailPageProps) {
         </div>
       </div>
 
-      <SajuResults
-        analysis={analysis}
-        aiText={displayAiText}
-        isAiLoading={aiMutation.isPending}
-      />
+      <SajuResults analysis={analysis} aiText={displayAiText} isAiLoading={aiMutation.isPending} />
     </div>
   );
 }

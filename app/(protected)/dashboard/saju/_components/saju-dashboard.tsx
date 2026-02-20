@@ -2,14 +2,15 @@
 
 import { useState } from "react";
 import { toast } from "sonner";
+import type { InterpretedAnalysis } from "@/lib/saju/types";
+import { useAiInterpretSaju, useInterpretSaju } from "../_hooks";
+import type { SajuFormValues } from "../_types";
 import { SajuForm } from "./saju-form";
 import { SajuResults } from "./saju-results";
-import { useInterpretSaju, useAiInterpretSaju } from "../_hooks";
-import type { SajuFormValues } from "../_types";
-import type { InterpretedAnalysis } from "@/lib/saju/types";
 
 function formValuesToInput(values: SajuFormValues) {
-  const d = values.birthDate!;
+  if (!values.birthDate) throw new Error("Birth date is required");
+  const d = values.birthDate;
   return {
     year: d.getFullYear(),
     month: d.getMonth() + 1,
@@ -76,23 +77,24 @@ export function SajuDashboard() {
           />
 
           <div className="rounded-xl border bg-muted/30 p-4 space-y-2">
-            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">About Saju</p>
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              사주팔자 (Four Pillars of Destiny) is a Korean metaphysical system that uses your birth year, month, day, and hour to construct four pillars — each containing a Heavenly Stem (천간) and Earthly Branch (지지).
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+              About Saju
             </p>
             <p className="text-xs text-muted-foreground leading-relaxed">
-              The <strong>Day Pillar</strong> (일주) represents your core self. The AI reading synthesizes all elements into a personalized interpretation.
+              사주팔자 (Four Pillars of Destiny) is a Korean metaphysical system that uses your
+              birth year, month, day, and hour to construct four pillars — each containing a
+              Heavenly Stem (천간) and Earthly Branch (지지).
+            </p>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              The <strong>Day Pillar</strong> (일주) represents your core self. The AI reading
+              synthesizes all elements into a personalized interpretation.
             </p>
           </div>
         </div>
 
         <div>
           {analysis ? (
-            <SajuResults
-              analysis={analysis}
-              aiText={aiText}
-              isAiLoading={aiMutation.isPending}
-            />
+            <SajuResults analysis={analysis} aiText={aiText} isAiLoading={aiMutation.isPending} />
           ) : (
             <EmptyState isLoading={interpretMutation.isPending || aiMutation.isPending} />
           )}
@@ -129,7 +131,10 @@ function EmptyState({ isLoading }: { isLoading: boolean }) {
           </div>
           <div className="grid grid-cols-4 gap-2 mt-2 opacity-30">
             {["年", "月", "日", "時"].map((c) => (
-              <div key={c} className="size-14 rounded-xl border-2 border-dashed flex items-center justify-center text-2xl font-bold text-muted-foreground">
+              <div
+                key={c}
+                className="size-14 rounded-xl border-2 border-dashed flex items-center justify-center text-2xl font-bold text-muted-foreground"
+              >
                 {c}
               </div>
             ))}

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { RevealOnScroll, fadeIn, fadeUp, scaleIn } from "./MotionWrapper";
+import { fadeIn, fadeUp, RevealOnScroll, scaleIn } from "./MotionWrapper";
 
 const STEPS = [
   {
@@ -50,11 +50,14 @@ export function HowItWorksSection() {
         {/* Header */}
         <div className="text-center mb-20">
           <RevealOnScroll variants={fadeIn} custom={0}>
-            <span className="text-xs tracking-widest uppercase font-mono text-primary">How It Works</span>
+            <span className="text-xs tracking-widest uppercase font-mono text-primary">
+              How It Works
+            </span>
           </RevealOnScroll>
           <RevealOnScroll variants={fadeUp} custom={1} className="mt-4">
             <h2 className="text-foreground">
-              Three Steps to<br />
+              Three Steps to
+              <br />
               <span className="text-primary">Clarity</span>
             </h2>
           </RevealOnScroll>
@@ -96,7 +99,9 @@ export function HowItWorksSection() {
                     <h5 className="text-foreground font-semibold">{step.title}</h5>
                   </div>
 
-                  <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    {step.description}
+                  </p>
 
                   <span className="text-xs font-mono text-primary/70 tracking-wider border border-primary/20 bg-primary/5 px-3 py-1 rounded-full">
                     {step.detail}

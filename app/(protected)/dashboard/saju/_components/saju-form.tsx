@@ -1,14 +1,14 @@
 "use client";
 
+import { RotateCcw, Search, Sparkles } from "lucide-react";
 import { useState } from "react";
-import { Sparkles, Search, RotateCcw } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { DateTimePicker } from "@/components/ui/date-time-picker";
-import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
+import { Switch } from "@/components/ui/switch";
 import type { SajuFormValues } from "../_types";
 
 interface SajuFormProps {
@@ -18,7 +18,12 @@ interface SajuFormProps {
   isAiLoading: boolean;
 }
 
-export function SajuForm({ onCalculate, onAiInterpret, isCalculating, isAiLoading }: SajuFormProps) {
+export function SajuForm({
+  onCalculate,
+  onAiInterpret,
+  isCalculating,
+  isAiLoading,
+}: SajuFormProps) {
   const [birthDate, setBirthDate] = useState<Date | undefined>(undefined);
   const [isLunar, setIsLunar] = useState(false);
   const [isLeapMonth, setIsLeapMonth] = useState(false);
@@ -43,7 +48,9 @@ export function SajuForm({ onCalculate, onAiInterpret, isCalculating, isAiLoadin
           </div>
           <div>
             <CardTitle className="text-xl">사주팔자 분석</CardTitle>
-            <CardDescription>Enter your birth date and time to reveal your Four Pillars</CardDescription>
+            <CardDescription>
+              Enter your birth date and time to reveal your Four Pillars
+            </CardDescription>
           </div>
         </div>
       </CardHeader>
@@ -71,14 +78,12 @@ export function SajuForm({ onCalculate, onAiInterpret, isCalculating, isAiLoadin
               </Label>
               <p className="text-xs text-muted-foreground">Use lunar calendar date</p>
             </div>
-            <Switch
-              id="lunar-toggle"
-              checked={isLunar}
-              onCheckedChange={setIsLunar}
-            />
+            <Switch id="lunar-toggle" checked={isLunar} onCheckedChange={setIsLunar} />
           </div>
 
-          <div className={`flex items-center justify-between rounded-lg border p-3 transition-opacity ${!isLunar ? "opacity-40 pointer-events-none" : ""}`}>
+          <div
+            className={`flex items-center justify-between rounded-lg border p-3 transition-opacity ${!isLunar ? "opacity-40 pointer-events-none" : ""}`}
+          >
             <div className="space-y-0.5">
               <Label className="text-sm font-medium cursor-pointer" htmlFor="leap-toggle">
                 윤달 (Leap)

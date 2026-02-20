@@ -164,7 +164,9 @@ export function LoginForm() {
           transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className="absolute bottom-16 left-14 right-14 flex flex-col gap-4"
         >
-          <span className="font-mono text-xs tracking-widest uppercase text-white/60">사주팔자</span>
+          <span className="font-mono text-xs tracking-widest uppercase text-white/60">
+            사주팔자
+          </span>
           <h3 className="text-white leading-tight drop-shadow-lg">
             Ancient wisdom,
             <br />

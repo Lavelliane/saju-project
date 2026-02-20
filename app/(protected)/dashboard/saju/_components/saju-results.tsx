@@ -1,11 +1,11 @@
 "use client";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { PillarCard } from "./pillar-card";
-import { OhengChart } from "./oheng-chart";
-import { SinsalPanel } from "./sinsal-panel";
-import { AiReadingPanel } from "./ai-reading-panel";
 import type { InterpretedAnalysis } from "@/lib/saju/types";
+import { AiReadingPanel } from "./ai-reading-panel";
+import { OhengChart } from "./oheng-chart";
+import { PillarCard } from "./pillar-card";
+import { SinsalPanel } from "./sinsal-panel";
 
 interface SajuResultsProps {
   analysis: InterpretedAnalysis;
@@ -24,10 +24,10 @@ export function SajuResults({ analysis, aiText, isAiLoading }: SajuResultsProps)
         <h2 className="text-lg font-semibold mb-1">Your Four Pillars</h2>
         <p className="text-sm text-muted-foreground mb-4">사주팔자 — The pillars of your destiny</p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <PillarCard position="year"  pillar={saju.yearPillar}  stage={stageMap["year"]}  />
-          <PillarCard position="month" pillar={saju.monthPillar} stage={stageMap["month"]} />
-          <PillarCard position="day"   pillar={saju.dayPillar}   stage={stageMap["day"]}   />
-          <PillarCard position="hour"  pillar={saju.hourPillar}  stage={stageMap["hour"]}  />
+          <PillarCard position="year" pillar={saju.yearPillar} stage={stageMap.year} />
+          <PillarCard position="month" pillar={saju.monthPillar} stage={stageMap.month} />
+          <PillarCard position="day" pillar={saju.dayPillar} stage={stageMap.day} />
+          <PillarCard position="hour" pillar={saju.hourPillar} stage={stageMap.hour} />
         </div>
       </div>
 

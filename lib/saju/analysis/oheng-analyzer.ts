@@ -1,5 +1,5 @@
-import type { SajuResult, Oheng } from "../types/saju";
-import type { OhengBalance, OhengAnalysis } from "../types/analysis";
+import type { OhengAnalysis, OhengBalance } from "../types/analysis";
+import type { Oheng, SajuResult } from "../types/saju";
 
 const OHENG_KEYS: Oheng[] = ["mok", "hwa", "to", "geum", "su"];
 

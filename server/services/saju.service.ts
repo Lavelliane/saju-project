@@ -1,13 +1,9 @@
-import { calculateSaju } from "@/lib/saju/core/saju-calculator";
-import { solarToLunar, lunarToSolar } from "@/lib/saju/core/lunar-converter";
-import { analyzeFullSaju, analyzeFromResult } from "@/lib/saju/analysis";
+import { analyzeFromResult, analyzeFullSaju } from "@/lib/saju/analysis";
 import { analyzeInterpreted, analyzeInterpretedFromResult } from "@/lib/saju/analysis/interpreter";
+import { lunarToSolar, solarToLunar } from "@/lib/saju/core/lunar-converter";
+import { calculateSaju } from "@/lib/saju/core/saju-calculator";
+import type { CalendarConversionResult, FullAnalysis, InterpretedAnalysis } from "@/lib/saju/types";
 import type { SajuInput, SajuResult } from "@/lib/saju/types/saju";
-import type {
-  FullAnalysis,
-  InterpretedAnalysis,
-  CalendarConversionResult,
-} from "@/lib/saju/types";
 
 export const sajuService = {
   getPillars(input: SajuInput): SajuResult {

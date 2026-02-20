@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { RevealOnScroll, fadeIn, fadeUp, scaleIn } from "./MotionWrapper";
+import { fadeIn, fadeUp, RevealOnScroll, scaleIn } from "./MotionWrapper";
 
 const SERVICES = [
   {
@@ -13,7 +13,12 @@ const SERVICES = [
     priceNote: "Always free",
     description:
       "Your core Four Pillars chart with an overview of your elemental balance, dominant energy, and key personality traits.",
-    features: ["Four Pillars chart", "Five Elements balance", "Core personality profile", "Dominant energy analysis"],
+    features: [
+      "Four Pillars chart",
+      "Five Elements balance",
+      "Core personality profile",
+      "Dominant energy analysis",
+    ],
     cta: "Start Free",
     href: "/register",
     highlight: false,
@@ -72,17 +77,21 @@ export function ServicesSection() {
         {/* Header */}
         <div className="text-center mb-20">
           <RevealOnScroll variants={fadeIn} custom={0}>
-            <span className="text-xs tracking-widest uppercase font-mono text-primary">Readings</span>
+            <span className="text-xs tracking-widest uppercase font-mono text-primary">
+              Readings
+            </span>
           </RevealOnScroll>
           <RevealOnScroll variants={fadeUp} custom={1} className="mt-4">
             <h2 className="text-foreground">
-              Choose Your<br />
+              Choose Your
+              <br />
               <span className="text-primary">Path of Insight</span>
             </h2>
           </RevealOnScroll>
           <RevealOnScroll variants={fadeUp} custom={2} className="mt-6 max-w-lg mx-auto">
             <p className="text-muted-foreground text-lg">
-              From a free foundation reading to a full destiny deep-dive — find the reading that speaks to you.
+              From a free foundation reading to a full destiny deep-dive — find the reading that
+              speaks to you.
             </p>
           </RevealOnScroll>
         </div>
@@ -111,7 +120,9 @@ export function ServicesSection() {
                 {/* Top accent */}
                 <div
                   className="absolute top-0 left-6 right-6 h-0.5 rounded-full opacity-50"
-                  style={{ background: service.highlight ? "rgba(249,244,232,0.4)" : service.accent }}
+                  style={{
+                    background: service.highlight ? "rgba(249,244,232,0.4)" : service.accent,
+                  }}
                 />
 
                 {/* Korean label */}
@@ -170,7 +181,9 @@ export function ServicesSection() {
                         ✦
                       </span>
                       <span
-                        className={service.highlight ? "text-primary-foreground/90" : "text-foreground"}
+                        className={
+                          service.highlight ? "text-primary-foreground/90" : "text-foreground"
+                        }
                       >
                         {feat}
                       </span>

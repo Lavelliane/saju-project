@@ -66,17 +66,17 @@ export const HAKDANG_GWIYIN: Record<number, number> = {
  * 천덕귀인 (天德貴人) - 월지 기준 → 해당 천간 또는 지지
  */
 export const CHEONDUK_GWIYIN: Record<number, { type: "cheongan" | "jiji"; id: number }> = {
-  0:  { type: "cheongan", id: 3 },
-  1:  { type: "cheongan", id: 7 },
-  2:  { type: "cheongan", id: 3 },
-  3:  { type: "cheongan", id: 7 },
-  4:  { type: "cheongan", id: 8 },
-  5:  { type: "cheongan", id: 7 },
-  6:  { type: "jiji",     id: 11 },
-  7:  { type: "cheongan", id: 0 },
-  8:  { type: "cheongan", id: 8 },
-  9:  { type: "cheongan", id: 2 },
-  10: { type: "jiji",     id: 5 },
+  0: { type: "cheongan", id: 3 },
+  1: { type: "cheongan", id: 7 },
+  2: { type: "cheongan", id: 3 },
+  3: { type: "cheongan", id: 7 },
+  4: { type: "cheongan", id: 8 },
+  5: { type: "cheongan", id: 7 },
+  6: { type: "jiji", id: 11 },
+  7: { type: "cheongan", id: 0 },
+  8: { type: "cheongan", id: 8 },
+  9: { type: "cheongan", id: 2 },
+  10: { type: "jiji", id: 5 },
   11: { type: "cheongan", id: 0 },
 };
 
@@ -182,7 +182,6 @@ export const GEONROK: Record<number, number> = {
   8: 11,
   9: 0,
 };
-
 
 // ========== 흉신 (凶神) ==========
 
@@ -469,16 +468,16 @@ export const GWIMUNGWAN: Record<number, number> = {
  * 오→사미, 미→오신, 신→미유, 유→신술, 술→유해, 해→술자
  */
 export const GYEOKGAK: Record<number, number[]> = {
-  0:  [1, 11],
-  1:  [0, 2],
-  2:  [1, 3],
-  3:  [2, 4],
-  4:  [3, 5],
-  5:  [4, 6],
-  6:  [5, 7],
-  7:  [6, 8],
-  8:  [7, 9],
-  9:  [8, 10],
+  0: [1, 11],
+  1: [0, 2],
+  2: [1, 3],
+  3: [2, 4],
+  4: [3, 5],
+  5: [4, 6],
+  6: [5, 7],
+  7: [6, 8],
+  8: [7, 9],
+  9: [8, 10],
   10: [9, 11],
   11: [10, 0],
 };

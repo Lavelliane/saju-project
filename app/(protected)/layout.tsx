@@ -1,7 +1,7 @@
-import { QueryProvider } from "@/providers/query-provider";
-import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "./_components/app-sidebar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { CookieProvider } from "@/providers/cookie-provider";
+import { QueryProvider } from "@/providers/query-provider";
+import { AppSidebar } from "./_components/app-sidebar";
 import { DashboardHeader } from "./_components/dashboard-header";
 
 export default function ProtectedLayout({ children }: { children: React.ReactNode }) {

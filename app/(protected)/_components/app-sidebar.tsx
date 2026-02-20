@@ -1,18 +1,18 @@
 "use client";
 
+import {
+  BookOpen,
+  LayoutDashboard,
+  LogOut,
+  MapPin,
+  Moon,
+  Newspaper,
+  PlusCircle,
+  Settings,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  LayoutDashboard,
-  Sparkles,
-  BookOpen,
-  PlusCircle,
-  LogOut,
-  Moon,
-  Settings,
-  Newspaper,
-  MapPin,
-} from "lucide-react";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   Sidebar,
   SidebarContent,
@@ -25,27 +25,39 @@ import {
   SidebarMenuItem,
   SidebarSeparator,
 } from "@/components/ui/sidebar";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { signOut, useSession } from "@/lib/auth/client";
 import { cn } from "@/lib/helpers/utils";
 
 const overviewItems = [
-  { label: "Dashboard",    href: "/dashboard",         icon: LayoutDashboard, exact: true },
-  { label: "New Reading",  href: "/dashboard/saju/new",icon: PlusCircle,      exact: false },
-  { label: "My Readings",  href: "/dashboard/saju",    icon: BookOpen,        exact: true },
-  { label: "Blog",         href: "/dashboard/blog",    icon: Newspaper,       exact: false },
-  { label: "Locations",    href: "/dashboard/locations",icon: MapPin,         exact: false },
+  { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard, exact: true },
+  { label: "New Reading", href: "/dashboard/saju/new", icon: PlusCircle, exact: false },
+  { label: "My Readings", href: "/dashboard/saju", icon: BookOpen, exact: true },
+  { label: "Blog", href: "/dashboard/blog", icon: Newspaper, exact: false },
+  { label: "Locations", href: "/dashboard/locations", icon: MapPin, exact: false },
 ];
 
 const fortuneTellers = [
-  { name: "Master Kim Jisoo",   role: "Saju Specialist",    initials: "KJ", color: "bg-violet-100 text-violet-700 dark:bg-violet-900 dark:text-violet-300" },
-  { name: "Grandmaster Park",   role: "Tarot & Saju",       initials: "GP", color: "bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300" },
-  { name: "Seer Choi Minjung",  role: "Five Elements",      initials: "CM", color: "bg-pink-100 text-pink-700 dark:bg-pink-900 dark:text-pink-300" },
+  {
+    name: "Master Kim Jisoo",
+    role: "Saju Specialist",
+    initials: "KJ",
+    color: "bg-violet-100 text-violet-700 dark:bg-violet-900 dark:text-violet-300",
+  },
+  {
+    name: "Grandmaster Park",
+    role: "Tarot & Saju",
+    initials: "GP",
+    color: "bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300",
+  },
+  {
+    name: "Seer Choi Minjung",
+    role: "Five Elements",
+    initials: "CM",
+    color: "bg-pink-100 text-pink-700 dark:bg-pink-900 dark:text-pink-300",
+  },
 ];
 
-const settingsItems = [
-  { label: "Settings", href: "/dashboard/settings", icon: Settings },
-];
+const settingsItems = [{ label: "Settings", href: "/dashboard/settings", icon: Settings }];
 
 export function AppSidebar() {
   const pathname = usePathname();
@@ -55,7 +67,12 @@ export function AppSidebar() {
     exact ? pathname === href : pathname.startsWith(href);
 
   const initials = session?.user?.name
-    ? session.user.name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2)
+    ? session.user.name
+        .split(" ")
+        .map((n) => n[0])
+        .join("")
+        .toUpperCase()
+        .slice(0, 2)
     : "?";
 
   return (
@@ -178,15 +195,23 @@ export function AppSidebar() {
       <SidebarFooter className="border-t p-3">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg" tooltip={session?.user?.name ?? "User"} className="rounded-lg">
+            <SidebarMenuButton
+              size="lg"
+              tooltip={session?.user?.name ?? "User"}
+              className="rounded-lg"
+            >
               <Avatar className="size-7 shrink-0">
                 <AvatarFallback className="text-xs bg-violet-100 dark:bg-violet-900 text-violet-700 dark:text-violet-300 font-bold">
                   {initials}
                 </AvatarFallback>
               </Avatar>
               <div className="flex flex-col min-w-0 flex-1 leading-tight">
-                <span className="text-xs font-semibold truncate">{session?.user?.name ?? "User"}</span>
-                <span className="text-[10px] text-muted-foreground truncate">{session?.user?.email ?? ""}</span>
+                <span className="text-xs font-semibold truncate">
+                  {session?.user?.name ?? "User"}
+                </span>
+                <span className="text-[10px] text-muted-foreground truncate">
+                  {session?.user?.email ?? ""}
+                </span>
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>

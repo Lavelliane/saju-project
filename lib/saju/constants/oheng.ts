@@ -45,10 +45,10 @@ export const SANGGEUK: Record<Oheng, Oheng> = {
  * 신자진=수국, 해묘미=목국, 인오술=화국, 사유축=금국
  */
 export const SAMHAP: Array<{ elements: [number, number, number]; oheng: Oheng }> = [
-  { elements: [8, 0, 4],  oheng: "su" },
+  { elements: [8, 0, 4], oheng: "su" },
   { elements: [11, 3, 7], oheng: "mok" },
   { elements: [2, 6, 10], oheng: "hwa" },
-  { elements: [5, 9, 1],  oheng: "geum" },
+  { elements: [5, 9, 1], oheng: "geum" },
 ];
 
 /**
@@ -56,12 +56,12 @@ export const SAMHAP: Array<{ elements: [number, number, number]; oheng: Oheng }>
  * 자축합토, 인해합목, 묘술합화, 진유합금, 사신합수, 오미합토(화)
  */
 export const YUKHAP: Array<[number, number, Oheng]> = [
-  [0, 1,  "to"],
+  [0, 1, "to"],
   [2, 11, "mok"],
   [3, 10, "hwa"],
-  [4, 9,  "geum"],
-  [5, 8,  "su"],
-  [6, 7,  "to"],
+  [4, 9, "geum"],
+  [5, 8, "su"],
+  [6, 7, "to"],
 ];
 
 /**

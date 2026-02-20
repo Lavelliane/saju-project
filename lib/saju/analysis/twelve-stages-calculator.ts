@@ -1,11 +1,11 @@
-import type { SajuResult, PillarPosition } from "../types/saju";
-import type { TwelveStageResult } from "../types/analysis";
 import {
-  TWELVE_STAGES_TABLE,
-  TWELVE_STAGE_NAMES,
-  TWELVE_STAGE_HANJA,
   TWELVE_STAGE_DESCRIPTIONS,
+  TWELVE_STAGE_HANJA,
+  TWELVE_STAGE_NAMES,
+  TWELVE_STAGES_TABLE,
 } from "../constants/twelve-stages-table";
+import type { TwelveStageResult } from "../types/analysis";
+import type { PillarPosition, SajuResult } from "../types/saju";
 
 /**
  * 12운성 계산
@@ -19,19 +19,20 @@ export function calculateTwelveStages(saju: SajuResult): TwelveStageResult[] {
   }
 
   const pillars: Array<{ position: PillarPosition; jijiId: number }> = [
-    { position: "year",  jijiId: saju.yearPillar.jiji.id },
+    { position: "year", jijiId: saju.yearPillar.jiji.id },
     { position: "month", jijiId: saju.monthPillar.jiji.id },
-    { position: "day",   jijiId: saju.dayPillar.jiji.id },
-    { position: "hour",  jijiId: saju.hourPillar.jiji.id },
+    { position: "day", jijiId: saju.dayPillar.jiji.id },
+    { position: "hour", jijiId: saju.hourPillar.jiji.id },
   ];
 
   return pillars.map(({ position, jijiId }) => {
-    const stageIndex = row[jijiId]!;
-    return {
-      pillar: position,
-      stage: TWELVE_STAGE_NAMES[stageIndex]!,
-      hanja: TWELVE_STAGE_HANJA[stageIndex]!,
-      description: TWELVE_STAGE_DESCRIPTIONS[stageIndex]!,
-    };
+    const stageIndex = row[jijiId];
+    if (stageIndex === undefined) throw new Error(`Invalid jiji id ${jijiId} for twelve stages`);
+    const stageName = TWELVE_STAGE_NAMES[stageIndex];
+    const hanja = TWELVE_STAGE_HANJA[stageIndex];
+    const description = TWELVE_STAGE_DESCRIPTIONS[stageIndex];
+    if (!stageName || !hanja || !description)
+      throw new Error(`Invalid stage index ${stageIndex} for twelve stages`);
+    return { pillar: position, stage: stageName, hanja, description };
   });
 }

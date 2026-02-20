@@ -1,6 +1,6 @@
 "use client";
 
-import { type Variants, motion, useInView } from "motion/react";
+import { motion, useInView, type Variants } from "motion/react";
 import { useRef } from "react";
 
 const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];

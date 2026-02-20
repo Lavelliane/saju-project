@@ -1,6 +1,6 @@
-import { ChatOpenAI } from "@langchain/openai";
-import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { StringOutputParser } from "@langchain/core/output_parsers";
+import { ChatPromptTemplate } from "@langchain/core/prompts";
+import { ChatOpenAI } from "@langchain/openai";
 import { env } from "@/env/server";
 import type { InterpretedAnalysis } from "@/lib/saju/types";
 
@@ -59,7 +59,10 @@ Keep each section concise but meaningful (2-4 sentences). Use both Korean terms 
 
 const chain = interpretationPrompt.pipe(model).pipe(outputParser);
 
-function formatPillar(pillar: { cheongan: { name: string; hanja: string; oheng: string }; jiji: { name: string; hanja: string; oheng: string } }): string {
+function formatPillar(pillar: {
+  cheongan: { name: string; hanja: string; oheng: string };
+  jiji: { name: string; hanja: string; oheng: string };
+}): string {
   return `${pillar.cheongan.name}${pillar.jiji.name} (${pillar.cheongan.hanja}${pillar.jiji.hanja}) — ${pillar.cheongan.oheng}/${pillar.jiji.oheng}`;
 }
 
@@ -67,15 +70,17 @@ export const sajuAiService = {
   async interpret(analysis: InterpretedAnalysis, language: "ko" | "en" = "en"): Promise<string> {
     const { saju, sinsal, twelveStages, oheng, interpreted } = analysis;
 
-    const gilsinList = sinsal
-      .filter((s) => s.type === "gilsin")
-      .map((s) => `${s.name}(${s.hanja}) @ ${s.pillar}`)
-      .join(", ") || "없음";
+    const gilsinList =
+      sinsal
+        .filter((s) => s.type === "gilsin")
+        .map((s) => `${s.name}(${s.hanja}) @ ${s.pillar}`)
+        .join(", ") || "없음";
 
-    const hyungsinList = sinsal
-      .filter((s) => s.type === "hyungsin")
-      .map((s) => `${s.name}(${s.hanja}) @ ${s.pillar}`)
-      .join(", ") || "없음";
+    const hyungsinList =
+      sinsal
+        .filter((s) => s.type === "hyungsin")
+        .map((s) => `${s.name}(${s.hanja}) @ ${s.pillar}`)
+        .join(", ") || "없음";
 
     const twelveStagesText = twelveStages
       .map((ts) => `${ts.pillar}: ${ts.stage}(${ts.hanja}) — ${ts.description}`)
@@ -84,10 +89,14 @@ export const sajuAiService = {
     const topInterpreted = interpreted
       .sort((a, b) => b.effectivePower - a.effectivePower)
       .slice(0, 5)
-      .map((i) => `• ${i.sinsal.name}: ${i.powerLevel} (${(i.effectivePower * 100).toFixed(0)}%) — ${i.interpretation}`)
+      .map(
+        (i) =>
+          `• ${i.sinsal.name}: ${i.powerLevel} (${(i.effectivePower * 100).toFixed(0)}%) — ${i.interpretation}`,
+      )
       .join("\n");
 
-    const langInstruction = language === "ko" ? " Please respond entirely in Korean (한국어로 답변해주세요)." : "";
+    const langInstruction =
+      language === "ko" ? " Please respond entirely in Korean (한국어로 답변해주세요)." : "";
 
     const result = await chain.invoke({
       yearPillar: formatPillar(saju.yearPillar),

@@ -2,8 +2,8 @@ import {
   calculateSaju as mCalculateSaju,
   lunarToSolar as mLunarToSolar,
 } from "@fullstackfamily/manseryeok";
-import { resolvePillar } from "./pillar-resolver";
 import type { SajuInput, SajuResult } from "../types/saju";
+import { resolvePillar } from "./pillar-resolver";
 
 /**
  * 사주팔자 산출 메인 함수

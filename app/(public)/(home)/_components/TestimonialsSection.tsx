@@ -2,7 +2,7 @@
 
 import { motion, useAnimationFrame, useMotionValue, useTransform } from "motion/react";
 import { useRef } from "react";
-import { RevealOnScroll, fadeIn, fadeUp } from "./MotionWrapper";
+import { fadeIn, fadeUp, RevealOnScroll } from "./MotionWrapper";
 
 const TESTIMONIALS = [
   {
@@ -59,7 +59,9 @@ function StarRating({ count }: { count: number }) {
   return (
     <div className="flex gap-0.5">
       {Array.from({ length: count }).map((_, i) => (
-        <span key={i} className="text-[#C5A059] text-sm">✦</span>
+        <span key={i} className="text-[#C5A059] text-sm">
+          ✦
+        </span>
       ))}
     </div>
   );
@@ -126,11 +128,14 @@ export function TestimonialsSection() {
       <div className="max-w-7xl mx-auto px-6 mb-16">
         <div className="text-center">
           <RevealOnScroll variants={fadeIn} custom={0}>
-            <span className="text-xs tracking-widest uppercase font-mono text-primary">Testimonials</span>
+            <span className="text-xs tracking-widest uppercase font-mono text-primary">
+              Testimonials
+            </span>
           </RevealOnScroll>
           <RevealOnScroll variants={fadeUp} custom={1} className="mt-4">
             <h2 className="text-foreground">
-              Voices of Those<br />
+              Voices of Those
+              <br />
               <span className="text-primary">Who Found Their Path</span>
             </h2>
           </RevealOnScroll>

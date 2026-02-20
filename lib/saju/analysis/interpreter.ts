@@ -1,30 +1,29 @@
-import type { SajuResult, PillarPosition } from "../types/saju";
+import { calculateSaju } from "../core/saju-calculator";
 import type {
+  InterpretedAnalysis,
+  InterpretedSinsal,
+  PowerLevel,
   SinsalResult,
   TwelveStageResult,
-  InterpretedSinsal,
-  InterpretedAnalysis,
-  PowerLevel,
 } from "../types/analysis";
-import { calculateSaju } from "../core/saju-calculator";
+import type { PillarPosition, SajuInput, SajuResult } from "../types/saju";
+import { analyzeOheng } from "./oheng-analyzer";
 import { calculateSinsal } from "./sinsal-calculator";
 import { calculateTwelveStages } from "./twelve-stages-calculator";
-import { analyzeOheng } from "./oheng-analyzer";
-import type { SajuInput } from "../types/saju";
 
 const STAGE_POWER: Record<string, number> = {
-  "제왕": 1.0,
-  "건록": 0.9,
-  "관대": 0.8,
-  "장생": 0.75,
-  "목욕": 0.6,
-  "양":   0.5,
-  "태":   0.4,
-  "쇠":   0.3,
-  "병":   0.2,
-  "사":   0.1,
-  "묘":   0.05,
-  "절":   0.0,
+  제왕: 1.0,
+  건록: 0.9,
+  관대: 0.8,
+  장생: 0.75,
+  목욕: 0.6,
+  양: 0.5,
+  태: 0.4,
+  쇠: 0.3,
+  병: 0.2,
+  사: 0.1,
+  묘: 0.05,
+  절: 0.0,
 };
 
 const GONGMANG_MULTIPLIER = 0.3;
@@ -39,7 +38,7 @@ function getPowerLevel(power: number): PowerLevel {
 function getGongmangJiji(saju: SajuResult): [number, number] {
   const dayGanId = saju.dayPillar.cheongan.id;
   const dayJijiId = saju.dayPillar.jiji.id;
-  const startJiji = ((dayJijiId - dayGanId) % 12 + 12) % 12;
+  const startJiji = (((dayJijiId - dayGanId) % 12) + 12) % 12;
   return [(startJiji + 10) % 12, (startJiji + 11) % 12];
 }
 
@@ -49,10 +48,10 @@ function isGongmangPillar(
   gongmangJiji: [number, number],
 ): boolean {
   const pillarMap: Record<PillarPosition, number> = {
-    year:  saju.yearPillar.jiji.id,
+    year: saju.yearPillar.jiji.id,
     month: saju.monthPillar.jiji.id,
-    day:   saju.dayPillar.jiji.id,
-    hour:  saju.hourPillar.jiji.id,
+    day: saju.dayPillar.jiji.id,
+    hour: saju.hourPillar.jiji.id,
   };
   return gongmangJiji.includes(pillarMap[position]);
 }
@@ -60,7 +59,7 @@ function isGongmangPillar(
 function interpretGilsin(
   sinsal: SinsalResult,
   stage: TwelveStageResult,
-  power: number,
+  _power: number,
   level: PowerLevel,
   isGongmang: boolean,
 ): string {
@@ -87,7 +86,7 @@ function interpretGilsin(
 function interpretHyungsin(
   sinsal: SinsalResult,
   stage: TwelveStageResult,
-  power: number,
+  _power: number,
   level: PowerLevel,
   isGongmang: boolean,
 ): string {
@@ -123,7 +122,8 @@ export function interpretSinsal(
   }
 
   return sinsalList.map((sinsal) => {
-    const stage = stageMap.get(sinsal.pillar)!;
+    const stage = stageMap.get(sinsal.pillar);
+    if (!stage) throw new Error(`Missing twelve stage for pillar ${sinsal.pillar}`);
     const gongmang = isGongmangPillar(saju, sinsal.pillar, gongmangJiji);
     const stageScore = STAGE_POWER[stage.stage] ?? 0.5;
     const effectivePower = stageScore * (gongmang ? GONGMANG_MULTIPLIER : 1.0);
@@ -133,7 +133,14 @@ export function interpretSinsal(
         ? interpretGilsin(sinsal, stage, effectivePower, powerLevel, gongmang)
         : interpretHyungsin(sinsal, stage, effectivePower, powerLevel, gongmang);
 
-    return { sinsal, twelveStage: stage, isGongmang: gongmang, effectivePower, powerLevel, interpretation };
+    return {
+      sinsal,
+      twelveStage: stage,
+      isGongmang: gongmang,
+      effectivePower,
+      powerLevel,
+      interpretation,
+    };
   });
 }
 

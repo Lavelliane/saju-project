@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchInterpret, fetchAiInterpret } from "./api";
-import { readingKeys } from "./queries";
 import type { SajuInput } from "@/lib/saju/types";
+import { fetchAiInterpret, fetchInterpret } from "./api";
+import { readingKeys } from "./queries";
 
 export function useInterpretSaju() {
   return useMutation({

@@ -1,4 +1,4 @@
-import type { SajuResult, Oheng, PillarPosition } from "./saju";
+import type { Oheng, PillarPosition, SajuResult } from "./saju";
 
 export interface SinsalResult {
   name: string;

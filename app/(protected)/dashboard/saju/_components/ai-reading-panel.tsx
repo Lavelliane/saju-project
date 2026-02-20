@@ -1,11 +1,10 @@
 "use client";
 
+import { Check, ChevronDown, ChevronUp, Copy, Sparkles } from "lucide-react";
 import { useState } from "react";
-import { Sparkles, ChevronDown, ChevronUp, Copy, Check } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { cn } from "@/lib/helpers/utils";
 
 interface AiReadingPanelProps {
   text: string | undefined;
@@ -23,8 +22,8 @@ function parseSection(text: string): Array<{ title: string; body: string }> {
 
     if (headingMatch) {
       if (current) sections.push({ title: current.title, body: current.body.join("\n").trim() });
-      current = { title: headingMatch[1]!, body: [] };
-    } else if (boldMatch && boldMatch[1] && boldMatch[1].length < 80) {
+      current = { title: headingMatch[1] ?? "", body: [] };
+    } else if (boldMatch?.[1] && boldMatch[1].length < 80) {
       if (current) sections.push({ title: current.title, body: current.body.join("\n").trim() });
       current = { title: boldMatch[1], body: boldMatch[2] ? [boldMatch[2]] : [] };
     } else if (current && line.trim()) {
@@ -36,13 +35,27 @@ function parseSection(text: string): Array<{ title: string; body: string }> {
 }
 
 const SECTION_EMOJIS: Record<string, string> = {
-  "Overall": "🌟", "Character": "🌟", "성격": "🌟", "운명": "🌟",
-  "Strengths": "💪", "Talents": "💪", "강점": "💪", "재능": "💪",
-  "Challenges": "⚡", "과제": "⚡", "도전": "⚡",
-  "Relationships": "❤️", "인간관계": "❤️",
-  "Career": "💼", "Wealth": "💼", "직업": "💼", "재물": "💼",
-  "Spiritual": "✨", "신살": "✨",
-  "Advice": "🧭", "조언": "🧭",
+  Overall: "🌟",
+  Character: "🌟",
+  성격: "🌟",
+  운명: "🌟",
+  Strengths: "💪",
+  Talents: "💪",
+  강점: "💪",
+  재능: "💪",
+  Challenges: "⚡",
+  과제: "⚡",
+  도전: "⚡",
+  Relationships: "❤️",
+  인간관계: "❤️",
+  Career: "💼",
+  Wealth: "💼",
+  직업: "💼",
+  재물: "💼",
+  Spiritual: "✨",
+  신살: "✨",
+  Advice: "🧭",
+  조언: "🧭",
 };
 
 function getSectionEmoji(title: string): string {
@@ -86,7 +99,11 @@ export function AiReadingPanel({ text, isLoading }: AiReadingPanelProps) {
           </CardTitle>
           {text && (
             <Button variant="ghost" size="sm" onClick={handleCopy} className="h-7 px-2 text-xs">
-              {copied ? <Check className="size-3 mr-1 text-emerald-500" /> : <Copy className="size-3 mr-1" />}
+              {copied ? (
+                <Check className="size-3 mr-1 text-emerald-500" />
+              ) : (
+                <Copy className="size-3 mr-1" />
+              )}
               {copied ? "Copied" : "Copy"}
             </Button>
           )}
@@ -158,7 +175,9 @@ export function AiReadingPanel({ text, isLoading }: AiReadingPanelProps) {
               ))
             ) : (
               <div className="prose prose-sm dark:prose-invert max-w-none">
-                <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap">{text}</p>
+                <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap">
+                  {text}
+                </p>
               </div>
             )}
           </div>

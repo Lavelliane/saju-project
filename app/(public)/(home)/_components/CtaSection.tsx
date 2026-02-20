@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { RevealOnScroll, fadeIn, fadeUp } from "./MotionWrapper";
+import { fadeIn, fadeUp, RevealOnScroll } from "./MotionWrapper";
 
 const FOOTER_LINKS = [
   { label: "About Saju", href: "/#about" },
@@ -41,26 +41,37 @@ export function CtaSection() {
 
           <RevealOnScroll variants={fadeUp} custom={1}>
             <h2 className="text-foreground">
-              The Stars Have Always<br />
+              The Stars Have Always
+              <br />
               <span className="text-primary">Known Your Name</span>
             </h2>
           </RevealOnScroll>
 
           <RevealOnScroll variants={fadeUp} custom={2} className="max-w-xl">
             <p className="text-muted-foreground text-lg leading-relaxed">
-              Your Saju chart was written the moment you took your first breath. It has been waiting for you ever since. Start with a free reading — no credit card required.
+              Your Saju chart was written the moment you took your first breath. It has been waiting
+              for you ever since. Start with a free reading — no credit card required.
             </p>
           </RevealOnScroll>
 
           <RevealOnScroll variants={fadeUp} custom={3}>
             <div className="flex flex-col sm:flex-row items-center gap-4">
               <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-                <Button asChild size="lg" className="px-10 py-6 text-base rounded-full shadow-lg shadow-primary/20">
+                <Button
+                  asChild
+                  size="lg"
+                  className="px-10 py-6 text-base rounded-full shadow-lg shadow-primary/20"
+                >
                   <Link href="/register">Read My Destiny — Free</Link>
                 </Button>
               </motion.div>
               <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-                <Button asChild variant="outline" size="lg" className="px-10 py-6 text-base rounded-full">
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="px-10 py-6 text-base rounded-full"
+                >
                   <Link href="/login">Sign In</Link>
                 </Button>
               </motion.div>
@@ -88,7 +99,9 @@ export function CtaSection() {
       <footer className="border-t border-border py-12 px-6">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex flex-col items-center sm:items-start gap-1">
-            <span className="font-mono font-bold text-foreground tracking-widest text-sm uppercase">SAJU</span>
+            <span className="font-mono font-bold text-foreground tracking-widest text-sm uppercase">
+              SAJU
+            </span>
             <span className="text-xs text-muted-foreground">Korean Fortune Telling · 사주팔자</span>
           </div>
 

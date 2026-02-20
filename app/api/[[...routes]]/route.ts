@@ -4,10 +4,10 @@ import type { AuthType } from "@/lib/auth";
 import { errorHandler } from "@/server/handlers/error.handler";
 import { loggerMiddleware } from "@/server/middleware/logger.middleware";
 import auth from "@/server/routes/auth/auth.route";
+import calendar from "@/server/routes/calendar/calendar.route";
 import docs from "@/server/routes/docs/docs.route";
 import health from "@/server/routes/health/health.route";
 import saju from "@/server/routes/saju/saju.route";
-import calendar from "@/server/routes/calendar/calendar.route";
 
 const app = new Hono<{ Variables: AuthType }>({ strict: false }).basePath("/api");
 

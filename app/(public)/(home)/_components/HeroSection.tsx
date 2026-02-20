@@ -52,8 +52,8 @@ export function HeroSection() {
           className="absolute select-none pointer-events-none font-bold opacity-5 text-foreground"
           style={{
             fontSize: `${3 + (i % 3) * 2}rem`,
-            left: `${8 + (i * 11) % 84}%`,
-            top: `${10 + (i * 13) % 75}%`,
+            left: `${8 + ((i * 11) % 84)}%`,
+            top: `${10 + ((i * 13) % 75)}%`,
           }}
           animate={{
             y: [0, -20, 0],
@@ -71,7 +71,10 @@ export function HeroSection() {
         </motion.span>
       ))}
 
-      <motion.div style={{ y, opacity }} className="relative z-10 flex flex-col items-center text-center px-6 gap-10">
+      <motion.div
+        style={{ y, opacity }}
+        className="relative z-10 flex flex-col items-center text-center px-6 gap-10"
+      >
         {/* Label */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -103,7 +106,9 @@ export function HeroSection() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
             className="max-w-xl text-muted-foreground text-lg leading-relaxed"
           >
-            Unlock the ancient wisdom of Saju — the Korean art of reading the Four Pillars of Destiny. Discover who you are, who you're meant to be, and what the universe has planned for you.
+            Unlock the ancient wisdom of Saju — the Korean art of reading the Four Pillars of
+            Destiny. Discover who you are, who you're meant to be, and what the universe has planned
+            for you.
           </motion.p>
         </div>
 
@@ -153,7 +158,9 @@ export function HeroSection() {
         transition={{ delay: 1.5 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        <span className="text-xs text-muted-foreground tracking-widest uppercase font-mono">Scroll</span>
+        <span className="text-xs text-muted-foreground tracking-widest uppercase font-mono">
+          Scroll
+        </span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
